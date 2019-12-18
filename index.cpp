@@ -36,22 +36,22 @@ public:
     }
   }
 
-  static int parse_helper(vector<string> *vec, string line, const char * delim) {
+  static int parse_helper(vector<string>& vec, string line, const char * delim) {
       char cstr[line.size()+1];
       strcpy(cstr, line.c_str());
       char *token = strtok(cstr, delim);
 
       short count = 0;
       short size = 8;
-      (*vec).resize(size);
+      vec.resize(size);
 
       while (token != NULL) {
-          (*vec)[count] = token;
+          vec[count] = token;
           token = strtok(NULL, delim);
-          count++;
+          ++count;
           if (count == size) {
-              size = size*2;
-              (*vec).resize(size);
+              size *= 2;
+              vec.resize(size);
           }
       }
 
@@ -66,19 +66,19 @@ public:
       vector<vector<string> > formula;
 
       getline(input, line);
-      short num_clauses = parse_helper(&clauses, line, "^");
+      short num_clauses = parse_helper(clauses, line, "^");
       cout << "num clauses: " << num_clauses << "\n";
       formula.resize(num_clauses);
 
-      // parse each clause into  literals
+      // parse each clause into literals
       short num_literals;
       for (int i=0; i < num_clauses; i++) {
-          num_literals = parse_helper(&(formula[i]), clauses[i], "|");
+          num_literals = parse_helper(formula[i], clauses[i], "|");
           formula[i].resize(num_literals);
       }
 
       input.close();
-          return formula;
+      return formula;
   }
 };
 
