@@ -6,8 +6,10 @@
 #include <utility>
 #include <algorithm>
 #include <fstream>
+#include <iostream>
+#include <cstring>
 
-using std::vector, std::set, std::string, std::unordered_map, std::pair;
+using std::vector, std::set, std::string, std::unordered_map, std::pair, std::ifstream, std::cout;
 
 class Index {
   vector<vector<bool>> matrix; // genes are rows, cells are columns
@@ -34,7 +36,7 @@ public:
     }
   }
 
-  int parse_helper(vector<string> *vec, string line, const char * delim) {
+  static int parse_helper(vector<string> *vec, string line, const char * delim) {
       char cstr[line.size()+1];
       strcpy(cstr, line.c_str());
       char *token = strtok(cstr, delim);
@@ -56,7 +58,7 @@ public:
       return count;
   }
 
-  vector<vector<string> > build_formula(string input_file) {
+  static vector<vector<string> > build_formula(string input_file) {
       ifstream input(input_file);
       string line;
       char *token;
@@ -84,7 +86,7 @@ int main(int argc, char** argv)
 {
     if (argc >= 2) {
         if (((string)"query").compare(argv[1]) == 0) {
-            build_formula(argv[2]);
+	  Index::build_formula(argv[2]);
         } else {
             cout << "Unknown command. Please use query.";
         }
