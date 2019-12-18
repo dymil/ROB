@@ -17,7 +17,7 @@ class Index {
   vector<pair<set<int>, set<int>>> expressed; // stores which cells express a given gene or don't; TODO: should they be ints?
   
 public:
-  Index(const vector<vector<bool>>& mat, const vector<string> geneNames, const vector<string> cellNames): matrix(mat), geneNames(geneNames), cellNames(cellNames), expressed(geneNames.size()) {
+  Index(const vector<vector<bool>>& mat, const vector<string>& geneNames, const vector<string>& cellNames): matrix(mat), geneNames(geneNames), cellNames(cellNames), expressed(geneNames.size()) {
     assert(matrix.size() == geneNames.size());
     for (int i = 0; i < geneNames.size(); ++i) {
       geneNamesToIdx.insert({geneNames[i], i});
