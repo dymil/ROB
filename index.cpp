@@ -66,7 +66,7 @@ bool Index::gene_comparator(const pair<bool,string>& gene1, const pair<bool,stri
   int ind2 = geneNamesToIdx.at(gene2.second);
     int count1 = (gene1.first ? expressed[ind1].first : expressed[ind1].second).size();
     int count2 = (gene1.first ? expressed[ind2].first : expressed[ind2].second).size();
-    return count1 < count2;
+    return count1 > count2;
 }
 
 void Index::sort_clause(vector<pair<bool,string> >& clause) const {
@@ -81,7 +81,7 @@ bool Index::clause_comparator(const vector<pair<bool,string> >& c1, const vector
       curr_gene = geneNamesToIdx.at(c1[i].second);
       sizeC1 += (c1[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
-  for (int i=0; i<c1.size(); i++) {
+  for (int i=0; i<c2.size(); i++) {
       curr_gene = geneNamesToIdx.at(c2[i].second);
       sizeC2 += (c2[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
@@ -92,7 +92,11 @@ void Index::sort_formula(vector<vector<pair<bool,string> > >& formula) const {
     sort(formula.begin(), formula.end(), [this](auto l, auto r){return clause_comparator(l, r);});
 }
 
-vector<int> Index::first_clause(const vector<vector<pair<bool,string> > >& formula) const {
+vector<int> Index::first_clause(vector<vector<pair<bool,string> > >& formula) const {
+    sort_formula(formula);
+    for(int i=0; i<formula.size(); i++) {
+        sort_clause(formula[i]);
+    }
   int gene = geneNamesToIdx.at(formula[0][0].second);
   vector<int> curr_sat = (formula[0][0].first ? expressed[gene].first : expressed[gene].second);
   vector<int> curr_unsat = (formula[0][0].first ? expressed[gene].second : expressed[gene].first);
