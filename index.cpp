@@ -13,16 +13,16 @@ using namespace std;
 
 Index::Index(const vector<vector<bool> >& mat, const vector<string>& geneNames, const vector<string>& cellNames): matrix(mat), geneNames(geneNames), cellNames(cellNames), expressed(geneNames.size()) {
     assert(matrix.size() == geneNames.size());
-    for (int i = 0; i < geneNames.size(); ++i) {
+    for (unsigned int i = 0; i < geneNames.size(); ++i) {
       geneNamesToIdx.insert({geneNames[i], i});
     }
 
-    for (int i = 0; i < cellNames.size(); ++i) {
+    for (unsigned int i = 0; i < cellNames.size(); ++i) {
       cellNamesToIdx.insert({cellNames[i], i});
     }
 
-    for (int i = 0; i < expressed.size(); ++i) {
-      for (int j = 0; j < matrix[i].size(); ++j)
+    for (unsigned int i = 0; i < expressed.size(); ++i) {
+      for (unsigned int j = 0; j < matrix[i].size(); ++j)
 	(matrix[i][j] ? expressed[i].first : expressed[i].second).push_back(j);
     }
  }
@@ -72,16 +72,16 @@ void Index::sort_clause(vector<pair<bool,string> >& clause) const {
 }
 
 bool Index::clause_comparator(const vector<pair<bool,string> >& c1, const vector<pair<bool,string> >& c2) const {
-  int sizeC1;
-  int sizeC2;
+  int sizeC1 = 0;
+  int sizeC2 = 0;
   int curr_gene;
-  for (const auto& literal : c1) {
-      curr_gene = geneNamesToIdx.at(literal.second);
-      sizeC1 += (literal.first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
+  for (int i=0; i<c1.size(); i++) {
+    curr_gene = geneNamesToIdx.at(c1[i].second);
+    sizeC1 += (c1[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
-  for (const auto& literal : c2) {
-      curr_gene = geneNamesToIdx.at(literal.second);
-      sizeC2 += (literal.first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
+  for (int i=0; i<c2.size(); i++) {
+    curr_gene = geneNamesToIdx.at(c2[i].second);
+    sizeC2 += (c2[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
   return sizeC1 < sizeC2;
 }

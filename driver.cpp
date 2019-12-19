@@ -66,7 +66,6 @@ int parse_clause(vector<pair<bool,string> >& vec, string line, const char * deli
 }
 
 vector<vector<pair<bool,string> > > build_formula(const string line) {
-    char *token;
     vector<string> clauses;
     vector<vector<pair<bool,string> > > formula;
 
@@ -78,8 +77,6 @@ vector<vector<pair<bool,string> > > build_formula(const string line) {
     for (int i=0; i < num_clauses; i++) {
         num_literals = parse_clause(formula[i], clauses[i], "|");
         formula[i].resize(num_literals);
-        for (int j=0; j < num_literals; j++) {
-        }
     }
 
     return formula;
