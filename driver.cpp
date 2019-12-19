@@ -10,6 +10,7 @@
 
 #include "index.hpp"
 #include "read_mat.hpp"
+#include "naive.hpp"
 
 using namespace std;
 
@@ -138,6 +139,8 @@ int main(int argc, char** argv)
             Index ind(matrix, geneNames, cellNames);
             vector<int> answer = ind.first_clause(formula);
             cout << "num sat: " << answer.size() << "\n";
+	    Naive naive(matrix, geneNames, cellNames);
+	    vector<int> naive_ans = naive.naive(formula);
         } else {
             cout << "Unknown command. Please use query.";
         }

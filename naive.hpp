@@ -15,5 +15,4 @@ public:
   
   /* Returns cell indices which satisfy the query. Checks each cell individually */
   std::vector<int> naive(std::vector<std::vector<std::pair<bool, std::string>>> query);
-      
-  };
+};
