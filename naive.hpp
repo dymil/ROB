@@ -14,5 +14,5 @@ public:
   Naive(const std::vector<std::vector<bool>>& mat, const std::vector<std::string>& geneNames, const std::vector<std::string>& cellNames);
   
   /* Returns cell indices which satisfy the query. Checks each cell individually */
-  std::vector<int> naive(std::vector<std::vector<std::pair<bool, std::string>>> query);
+  std::vector<int> query(const std::vector<std::vector<std::pair<bool, std::string>>>& query) const;
 };

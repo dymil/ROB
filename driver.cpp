@@ -140,7 +140,7 @@ int main(int argc, char** argv)
             vector<int> answer = ind.first_clause(formula);
             cout << "num sat: " << answer.size() << "\n";
 	    Naive naive(matrix, geneNames, cellNames);
-	    answer = naive.naive(formula);
+	    answer = naive.query(formula);
 	    cout << "num sat: " << answer.size() << "\n";
         } else {
             cout << "Unknown command. Please use query.";
