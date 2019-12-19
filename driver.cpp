@@ -92,37 +92,37 @@ int main(int argc, char** argv)
     vector<vector<bool> > matrix; // genes are rows, cells are columns
     vector<string> cellNames, geneNames;
 
-    if (argc < 3) {
-    matrix.resize(7);
-    for (int i=0; i<7; i++) {
-        for (int j=0; j<5; j++) {
-            matrix[i].resize(5);
+    if (argc < 4) {
+        matrix.resize(7);
+        for (int i=0; i<7; i++) {
+            for (int j=0; j<5; j++) {
+                matrix[i].resize(5);
+            }
         }
-    }
-    matrix[0][0] = 1;
-    matrix[2][0] = 1;
-    matrix[3][0] = 1;
-    matrix[5][0] = 1;
+        matrix[0][0] = 1;
+        matrix[2][0] = 1;
+        matrix[3][0] = 1;
+        matrix[5][0] = 1;
 
-    matrix[0][1] = 1;
-    matrix[2][1] = 1;
-    matrix[3][1] = 1;
+        matrix[0][1] = 1;
+        matrix[2][1] = 1;
+        matrix[3][1] = 1;
 
-    matrix[0][2] = 1;
+        matrix[0][2] = 1;
 
-    cellNames.push_back("a");
-    cellNames.push_back("b");
-    cellNames.push_back("c");
-    cellNames.push_back("d");
-    cellNames.push_back("e");
+        cellNames.push_back("a");
+        cellNames.push_back("b");
+        cellNames.push_back("c");
+        cellNames.push_back("d");
+        cellNames.push_back("e");
 
-    geneNames.push_back("a");
-    geneNames.push_back("b");
-    geneNames.push_back("c");
-    geneNames.push_back("d");
-    geneNames.push_back("e");
-    geneNames.push_back("f");
-    geneNames.push_back("gg");
+        geneNames.push_back("a");
+        geneNames.push_back("b");
+        geneNames.push_back("c");
+        geneNames.push_back("d");
+        geneNames.push_back("e");
+        geneNames.push_back("f");
+        geneNames.push_back("gg");
     } else {
       ifstream file(argv[3]);
       auto ret = parseMatFile(file);
@@ -131,7 +131,7 @@ int main(int argc, char** argv)
       else
 	std::exit(1);
     }
-    
+
     if (argc >= 2) {
       if (string("query").compare(argv[1]) == 0) {
             vector<vector<pair<bool,string> > > formula = build_formula(argv[2]);
