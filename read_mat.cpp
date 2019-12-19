@@ -23,15 +23,15 @@ int main(int argc, char* argv[]) {
     std::tie(colNames, rowNames, matrix) = ret.value();
   else
     std::exit(1);
-  
-  std::for_each(colNames.cbegin(), colNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
-  std::cout << colNames.back() << '\n';
-  std::for_each(rowNames.cbegin(), rowNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
-  std::cout << rowNames.back() << '\n';
+
+  printWithDelim(colNames.cbegin(), colNames.cend(), ' ', std::cout);
+  std::cout << '\n';
+  printWithDelim(rowNames.cbegin(), rowNames.cend(), ' ', std::cout);
+  std::cout << '\n';
   std::for_each(matrix.cbegin(), matrix.cend() - 1,
 		[](vector<bool> row){
-		  std::for_each(row.cbegin(), row.cend() - 1, [](bool s){std::cout << s << ' ';});
-		  std::cout << row.back() << '\n';});
+		  printWithDelim(row.cbegin(), row.cend(), ' ', std::cout);
+		  std::cout << '\n';});
   std::for_each(matrix.back().cbegin(), matrix.back().cend() - 1, [](bool s){std::cout << s << ' ';});
   std::cout << matrix.back().back();
 }

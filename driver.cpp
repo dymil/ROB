@@ -126,7 +126,10 @@ int main(int argc, char** argv)
     } else {
       ifstream file(argv[3]);
       auto ret = parseMatFile(file);
-      std::tie(cellNames, geneNames, matrix) = ret.value();
+      if (ret)
+	std::tie(cellNames, geneNames, matrix) = ret.value();
+      else
+	std::exit(1);
     }
     
     if (argc >= 2) {
