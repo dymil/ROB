@@ -37,7 +37,7 @@ tuple<vector<string>, vector<string>, vector<vector<bool>>> parseMatFile(istream
     ss >> name;
     rowNames.push_back(name);
     matrix.push_back(vector<bool>(colNames.size()));
-    auto n_copied = std::copy(std::istream_iterator<int>(ss), std::istream_iterator<int>(), matrix.back().begin()) - matrix.back().begin();
+    auto n_copied = std::copy(std::istream_iterator<int>(ss), std::istream_iterator<int>(), matrix.back().begin()) - matrix.back().begin(); // converts int to bool
     if (n_copied < colNames.size()) {
       std::cerr << "Copied: " << n_copied << " of expected: " << colNames.size() << " for line:\n" << line << "\nGot:\n";
       printWithDelim(matrix.back().cbegin(), matrix.back().cbegin() + n_copied, '\t', std::cerr);
