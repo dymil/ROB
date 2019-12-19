@@ -36,13 +36,11 @@ vector<int> Index::clause_helper(const vector<pair<bool,string> >& clause, vecto
   else {
       vector<int> still_unsatisfied;
       int curr_gene = geneNamesToIdx.at(clause[curr_index].second);
-      for (int i=0; i < not_satisfied.size(); i++){ //iterate over each cell
-          bool flag = clause[curr_index].first;
-          bool cell = matrix[curr_gene][not_satisfied[i]];
-          if ((cell&flag)|(!cell&!flag)) {
-              satisfied.push_back(not_satisfied[i]);
+      for (int cell : not_satisfied){
+          if (clause[curr_index].first == matrix[curr_gene][cell]) {
+              satisfied.push_back(cell);
           } else {
-              still_unsatisfied.push_back(not_satisfied[i]);
+              still_unsatisfied.push_back(cell);
           }
       }
       return clause_helper(clause, satisfied, still_unsatisfied, curr_index+1);
@@ -70,32 +68,32 @@ bool Index::gene_comparator(const pair<bool,string>& gene1, const pair<bool,stri
 }
 
 void Index::sort_clause(vector<pair<bool,string> >& clause) const {
-  sort(clause.begin(), clause.end(), [this](auto l, auto r){return gene_comparator(l, r);});
+  sort(clause.begin(), clause.end(), [this](const auto& l, const auto& r){return gene_comparator(l, r);});
 }
 
 bool Index::clause_comparator(const vector<pair<bool,string> >& c1, const vector<pair<bool,string> >& c2) const {
   int sizeC1;
   int sizeC2;
   int curr_gene;
-  for (int i=0; i<c1.size(); i++) {
-      curr_gene = geneNamesToIdx.at(c1[i].second);
-      sizeC1 += (c1[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
+  for (const auto& literal : c1) {
+      curr_gene = geneNamesToIdx.at(literal.second);
+      sizeC1 += (literal.first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
-  for (int i=0; i<c2.size(); i++) {
-      curr_gene = geneNamesToIdx.at(c2[i].second);
-      sizeC2 += (c2[i].first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
+  for (const auto& literal : c2) {
+      curr_gene = geneNamesToIdx.at(literal.second);
+      sizeC2 += (literal.first ? expressed[curr_gene].first : expressed[curr_gene].second).size();
   }
   return sizeC1 < sizeC2;
 }
 
 void Index::sort_formula(vector<vector<pair<bool,string> > >& formula) const {
-    sort(formula.begin(), formula.end(), [this](auto l, auto r){return clause_comparator(l, r);});
+    sort(formula.begin(), formula.end(), [this](const auto& l, const auto& r){return clause_comparator(l, r);});
 }
 
 vector<int> Index::first_clause(vector<vector<pair<bool,string> > >& formula) const {
     sort_formula(formula);
-    for(int i=0; i<formula.size(); i++) {
-        sort_clause(formula[i]);
+    for (auto& clause : formula) {
+        sort_clause(clause);
     }
   int gene = geneNamesToIdx.at(formula[0][0].second);
   vector<int> curr_sat = (formula[0][0].first ? expressed[gene].first : expressed[gene].second);
