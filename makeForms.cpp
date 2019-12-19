@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     int num_clauses = 5;
     //int clause_low = 1;
     int clause_high = 10;
-    int max_gene = 2000; //not inclusive
+    //int max_gene = 2000; //not inclusive
     double not_prob = 0.5;
 
     vector<vector<bool> > matrix; // genes are rows, cells are columns
@@ -33,6 +33,8 @@ int main(int argc, char** argv)
         std::tie(cellNames, geneNames, matrix) = ret;
     else
         std::exit(1);
+
+    int max_gene = geneNames.size();
 
     ofstream output_file(output);
 
