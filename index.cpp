@@ -69,5 +69,3 @@ vector<int> Index::first_clause(vector<vector<pair<bool,string> > > *formula) {
   curr_sat = *(clause_helper(&((*formula)[0]), &curr_sat, &curr_unsat, 1));
   return next_clause(formula, &curr_sat, 1);
 }
-
-};
