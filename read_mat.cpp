@@ -37,11 +37,16 @@ optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> parseMatFi
 }
 
 int main(int argc, char* argv[]) {
-  string s("Apple Bat Cat\nA 0 1 0\nB 1 1 0");
-  std::istringstream ss(s);
   vector<string> colNames, rowNames;
   vector<vector<bool>> matrix;
-  std::tie(colNames, rowNames, matrix) = parseMatFile(ss).value();
+  if (argc < 2) {
+    string s("Apple Bat Cat\nA 0 1 0\nB 1 1 0");
+    std::istringstream ss(s);
+    std::tie(colNames, rowNames, matrix) = parseMatFile(ss).value();
+  } else {
+    std::ifstream matFile(argv[1]);
+    std::tie(colNames, rowNames, matrix) = parseMatFile(matFile).value();
+  }
   std::for_each(colNames.cbegin(), colNames.cend() - 1, [](string s){std::cout << s << ' ';});
   std::cout << colNames.back() << '\n';
   std::for_each(rowNames.cbegin(), rowNames.cend() - 1, [](string s){std::cout << s << ' ';});
