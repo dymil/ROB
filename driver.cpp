@@ -7,6 +7,7 @@
 #include <cstring>
 #include <iterator>
 #include <sstream>
+#include <time.h>
 
 #include "index.hpp"
 #include "read_mat.hpp"
@@ -64,6 +65,7 @@ int parse_clause(vector<pair<bool,string> >& vec, string line, const char * deli
     return count;
 }
 
+/*
 vector<vector<pair<bool,string> > > build_formula(const string& input_file) {
     ifstream input(input_file);
     string line;
@@ -85,6 +87,26 @@ vector<vector<pair<bool,string> > > build_formula(const string& input_file) {
     }
 
     input.close();
+    return formula;
+}*/
+
+vector<vector<pair<bool,string> > > build_formula(const string line) {
+    char *token;
+    vector<string> clauses;
+    vector<vector<pair<bool,string> > > formula;
+
+    short num_clauses = parse_formula(clauses, line, "^");
+    formula.resize(num_clauses);
+
+    // parse each clause into  literals
+    short num_literals;
+    for (int i=0; i < num_clauses; i++) {
+        num_literals = parse_clause(formula[i], clauses[i], "|");
+        formula[i].resize(num_literals);
+        for (int j=0; j < num_literals; j++) {
+        }
+    }
+
     return formula;
 }
 
@@ -135,13 +157,26 @@ int main(int argc, char** argv)
 
     if (argc >= 2) {
       if (string("query").compare(argv[1]) == 0) {
-            vector<vector<pair<bool,string> > > formula = build_formula(argv[2]);
-            Index ind(matrix, geneNames, cellNames);
-            vector<int> answer = ind.first_clause(formula);
-            cout << "num sat: " << answer.size() << "\n";
-	    Naive naive(matrix, geneNames, cellNames);
-	    answer = naive.query(formula);
-	    cout << "num sat: " << answer.size() << "\n";
+          ifstream input(argv[2]);
+          string line;
+          vector<string> clauses;
+          vector<vector<pair<bool,string> > > formula;
+
+          while (getline(input, line)) {
+              vector<vector<pair<bool,string> > > formula = build_formula(line);
+              Index ind(matrix, geneNames, cellNames);
+              clock_t exp1 = clock();
+              vector<int> answer = ind.first_clause(formula);
+              exp1 = clock() - exp1;
+              cout << "time ours: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
+              cout << "num sat: " << answer.size() << "\n";
+              Naive naive(matrix, geneNames, cellNames);
+              exp1 = clock();
+              answer = naive.query(formula);
+              exp1 = clock() - exp1;
+              cout << "time naive: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
+ 	          cout << "num sat: " << answer.size() << "\n";
+          }
         } else {
             cout << "Unknown command. Please use query.";
         }
