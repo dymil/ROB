@@ -139,6 +139,7 @@ int main(int argc, char** argv)
             Index ind(matrix, geneNames, cellNames);
             vector<int> answer = ind.first_clause(formula);
             cout << "num sat: " << answer.size() << "\n";
+
 	    Naive naive(matrix, geneNames, cellNames);
 	    answer = naive.query(formula);
 	    cout << "num sat: " << answer.size() << "\n";
