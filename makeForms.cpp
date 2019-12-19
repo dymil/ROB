@@ -76,7 +76,8 @@ int main(int argc, char** argv) {
       std::exit(2);
     }
   }
-
+  cout << "num_forms: " << num_forms << "\nmax_gene: " << max_gene
+       << "\nnot_prob: " << not_prob << "\nclause_high: " << clause_high <<'\n';
   ofstream output_file(output);
   
   for (int i=0; i<num_forms; i++) {
