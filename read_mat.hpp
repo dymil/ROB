@@ -1,5 +1,4 @@
 #include <sstream>
-#include <optional>
 #include <vector>
 #include <tuple>
 #include <string>
@@ -7,7 +6,7 @@
 #include <algorithm>
 #include <ostream>
 
-using std::string, std::optional, std::tuple, std::vector, std::istream, std::ostream;
+using std::string, std::tuple, std::vector, std::istream, std::ostream;
 
 /* Reads a mat file, a la from panglaodb.se; returns colnames, rowsnames, and finally the matrix */
 
@@ -17,12 +16,12 @@ void printWithDelim(const BidirIt& cbegin, const BidirIt& cend, char delim, ostr
   std::cout << *(cend - 1);
 }
 
-optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> parseMatFile(istream& in) {
+tuple<vector<string>, vector<string>, vector<vector<bool>>> parseMatFile(istream& in) {
   string line;
 
   // read col names
   if (!std::getline(in, line))
-    return optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>>();
+    return tuple<vector<string>, vector<string>, vector<vector<bool>>>{{}, {}, {}};
 
   vector<string> colNames;
   std::istringstream ss(line);
@@ -42,8 +41,8 @@ optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> parseMatFi
       std::cerr << "Copied: " << n_copied << " of expected: " << colNames.size() << " for line:\n" << line << "\nGot:\n";
       printWithDelim(matrix.back().cbegin(), matrix.back().cbegin() + n_copied, '\t', std::cerr);
       std::cerr << std::endl;
-      return optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>>();
+      return tuple<vector<string>, vector<string>, vector<vector<bool>>>{{}, {}, {}};
     }
   }
-  return optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>>({colNames, rowNames, matrix});
+  return tuple<vector<string>, vector<string>, vector<vector<bool>>>{colNames, rowNames, matrix};
 }

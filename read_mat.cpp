@@ -10,7 +10,7 @@ using std::vector, std::string;
 int main(int argc, char* argv[]) {
   vector<string> colNames, rowNames;
   vector<vector<bool>> matrix;
-  optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> ret;
+  tuple<vector<string>, vector<string>, vector<vector<bool>>> ret;
   if (argc < 2) {
     string s("Apple Bat Cat\nA 0 1 0\nB 1 1 0");
     std::istringstream ss(s);
@@ -19,10 +19,7 @@ int main(int argc, char* argv[]) {
     std::ifstream matFile(argv[1]);
     ret = parseMatFile(matFile);
   }
-  if (ret)
-    std::tie(colNames, rowNames, matrix) = ret.value();
-  else
-    std::exit(1);
+  std::tie(colNames, rowNames, matrix) = ret;
 
   printWithDelim(colNames.cbegin(), colNames.cend(), ' ', std::cout);
   std::cout << '\n';
