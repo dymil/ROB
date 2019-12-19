@@ -33,8 +33,6 @@ int main(int argc, char** argv) {
   uniform_int_distribution geneDist(0, max_gene);
   uniform_real_distribution notDist(0.0, 1.0);
 
-  ofstream output_file(output);
-
   while (true) {
     static int c;
     static struct option long_options[] =
@@ -48,7 +46,7 @@ int main(int argc, char** argv) {
       };
     int option_index = 0;
 
-    c = getopt_long (argc, argv, "abc:d:f:",
+    c = getopt_long (argc, argv, "o:p:g:n:l:",
 		     long_options, &option_index);
 
     /* Detect the end of the options. */
@@ -78,6 +76,9 @@ int main(int argc, char** argv) {
       std::exit(2);
     }
   }
+
+  ofstream output_file(output);
+  
   for (int i=0; i<num_forms; i++) {
     for (int j=0; j<num_clauses; j++) {
       int num_literals = (clauseDist(gen)) + 1;
