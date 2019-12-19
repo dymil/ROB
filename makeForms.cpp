@@ -3,7 +3,7 @@
 #include <fstream>
 #include <cstring>
 #include <iterator>
-#include <ctime>
+#include <random>
 
 #include "read_mat.hpp"
 
@@ -11,13 +11,8 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    srand(time(NULL));
-
     string output = "forms.txt";
-    int num_forms = 10;
-    int num_clauses = 5;
-    int clause_high = 10;
-    int not_prob = 2; //not probability is 1 / this number
+    default_random_engine gen;
 
     vector<vector<bool> > matrix; // genes are rows, cells are columns
     vector<string> cellNames, geneNames;
@@ -28,18 +23,26 @@ int main(int argc, char** argv)
     else
         std::exit(1);
 
+    int num_forms = 10;
+    int num_clauses = 5;
+    int clause_high = 10;
+    double not_prob = 0.5;
     int max_gene = geneNames.size();
+
+    uniform_int_distribution clauseDist(0, clause_high);
+    uniform_int_distribution geneDist(0, max_gene);
+    uniform_real_distribution notDist(0.0, 1.0);
 
     ofstream output_file(output);
 
      for (int i=0; i<num_forms; i++) {
          for (int j=0; j<num_clauses; j++) {
-             int num_literals = (rand() % clause_high) + 1;
+	   int num_literals = (clauseDist(gen)) + 1;
              for (int k=0; k<num_literals; k++) {
-                 if (rand()%not_prob == 0) {
+	       if (notDist(gen) < not_prob) {
                      output_file << "!";
                  }
-                 int next_lit = (rand() % max_gene);
+	       int next_lit = geneDist(gen);
                  output_file << geneNames[next_lit];
                  if (k!= num_literals-1) {output_file << "|";}
              }
