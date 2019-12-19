@@ -47,9 +47,9 @@ int main(int argc, char* argv[]) {
     std::ifstream matFile(argv[1]);
     std::tie(colNames, rowNames, matrix) = parseMatFile(matFile).value();
   }
-  std::for_each(colNames.cbegin(), colNames.cend() - 1, [](string s){std::cout << s << ' ';});
+  std::for_each(colNames.cbegin(), colNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
   std::cout << colNames.back() << '\n';
-  std::for_each(rowNames.cbegin(), rowNames.cend() - 1, [](string s){std::cout << s << ' ';});
+  std::for_each(rowNames.cbegin(), rowNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
   std::cout << rowNames.back() << '\n';
   std::for_each(matrix.cbegin(), matrix.cend() - 1,
 		[](vector<bool> row){
