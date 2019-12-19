@@ -7,7 +7,8 @@
 #include <algorithm>
 #include <fstream>
 #include <iostream>
-#include "index.h"
+#include <cstring>
+#include "index.hpp"
 
 using namespace std;
 
@@ -133,7 +134,7 @@ int main(int argc, char** argv)
         if (((string)"query").compare(argv[1]) == 0) {
             vector<vector<pair<bool,string> > > formula = build_formula(argv[2]);
             Index ind(matrix1, genenames1, cellnames1);
-            vector<int> answer = ind.first_clause(&formula);
+            vector<int> answer = ind.first_clause(formula);
             cout << "num sat: " << answer.size() << "\n";
         } else {
             cout << "Unknown command. Please use query.";
