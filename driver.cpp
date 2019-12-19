@@ -1,13 +1,11 @@
-#include <set>
 #include <vector>
 #include <string>
-#include <unordered_map>
 #include <cassert>
 #include <utility>
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <cstring>
+
 #include "index.hpp"
 
 using namespace std;
