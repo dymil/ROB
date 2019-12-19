@@ -1,9 +1,10 @@
 CXX=g++
 CXXFLAGS=--std=c++1z
 
-all: makeFormula test
+all: formula test
 
-makeFormula: makeForms.cpp
+formula: makeForms.cpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
 
 test: driver.cpp index.cpp naive.cpp naive.hpp index.hpp read_mat.hpp
 	$(CXX) $(CXXFLAGS) -o $@ driver.cpp index.cpp naive.cpp
