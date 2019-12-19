@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <iostream>
 
-using std::stringstream, std::string, std::optional, std::tuple, std::vector, std::istream;
+using std::string, std::optional, std::tuple, std::vector, std::istream;
 
 /* Reads a mat file, a la from panglaodb.se; returns colnames, rowsnames, and finally the matrix */
 optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> parseMatFile(istream& in) {
