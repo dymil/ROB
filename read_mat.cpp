@@ -30,8 +30,9 @@ optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> parseMatFi
     string name;
     ss >> name;
     rowNames.push_back(name);
-    matrix.push_back(vector<bool>());
-    std::copy_n(std::istream_iterator<bool>(ss), colNames.size(), std::back_inserter(matrix.back()));
+    matrix.push_back(vector<bool>(colNames.size()));
+    if (std::copy(std::istream_iterator<bool>(ss), std::istream_iterator<bool>(), matrix.back().begin()) - matrix.back().begin() < colNames.size())
+      return optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>>();
   }
   return optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>>({colNames, rowNames, matrix});
 }
@@ -42,7 +43,11 @@ int main(int argc, char* argv[]) {
   if (argc < 2) {
     string s("Apple Bat Cat\nA 0 1 0\nB 1 1 0");
     std::istringstream ss(s);
-    std::tie(colNames, rowNames, matrix) = parseMatFile(ss).value();
+    auto ret = parseMatFile(ss);
+    if (ret)
+      std::tie(colNames, rowNames, matrix) = ret.value();
+    else
+      std::exit(1);
   } else {
     std::ifstream matFile(argv[1]);
     std::tie(colNames, rowNames, matrix) = parseMatFile(matFile).value();
