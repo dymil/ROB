@@ -10,18 +10,20 @@ using std::vector, std::string;
 int main(int argc, char* argv[]) {
   vector<string> colNames, rowNames;
   vector<vector<bool>> matrix;
+  optional<tuple<vector<string>, vector<string>, vector<vector<bool>>>> ret;
   if (argc < 2) {
     string s("Apple Bat Cat\nA 0 1 0\nB 1 1 0");
     std::istringstream ss(s);
-    auto ret = parseMatFile(ss);
-    if (ret)
-      std::tie(colNames, rowNames, matrix) = ret.value();
-    else
-      std::exit(1);
+    ret = parseMatFile(ss);
   } else {
     std::ifstream matFile(argv[1]);
-    std::tie(colNames, rowNames, matrix) = parseMatFile(matFile).value();
+    ret = parseMatFile(matFile);
   }
+  if (ret)
+    std::tie(colNames, rowNames, matrix) = ret.value();
+  else
+    std::exit(1);
+  
   std::for_each(colNames.cbegin(), colNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
   std::cout << colNames.back() << '\n';
   std::for_each(rowNames.cbegin(), rowNames.cend() - 1, [](const string& s){std::cout << s << ' ';});
