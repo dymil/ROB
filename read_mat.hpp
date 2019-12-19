@@ -5,6 +5,7 @@
 #include <iterator>
 #include <algorithm>
 #include <ostream>
+#include <iostream>
 
 using std::string, std::tuple, std::vector, std::istream, std::ostream;
 
@@ -12,8 +13,8 @@ using std::string, std::tuple, std::vector, std::istream, std::ostream;
 
 template<class BidirIt>
 void printWithDelim(const BidirIt& cbegin, const BidirIt& cend, char delim, ostream& out) {
-  std::for_each(cbegin, cend - 1, [delim](const typename std::iterator_traits<BidirIt>::value_type& s){std::cout << s << delim;});
-  std::cout << *(cend - 1);
+  std::for_each(cbegin, cend - 1, [&out, delim](const typename std::iterator_traits<BidirIt>::value_type& s){out << s << delim;});
+  out << *(cend - 1);
 }
 
 tuple<vector<string>, vector<string>, vector<vector<bool>>> parseMatFile(istream& in) {

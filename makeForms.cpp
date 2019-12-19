@@ -1,13 +1,9 @@
 #include <vector>
 #include <string>
-#include <cassert>
-#include <utility>
 #include <fstream>
-#include <iostream>
 #include <cstring>
 #include <iterator>
-#include <sstream>
-#include <time.h>
+#include <ctime>
 
 #include "read_mat.hpp"
 

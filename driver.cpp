@@ -157,6 +157,7 @@ int main(int argc, char** argv)
 
     if (argc >= 2) {
       if (string("query").compare(argv[1]) == 0) {
+<<<<<<< HEAD
           ifstream input(argv[2]);
           string line;
           vector<string> clauses;
@@ -177,6 +178,16 @@ int main(int argc, char** argv)
               cout << "time naive: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
  	          cout << "num sat: " << answer.size() << "\n";
           }
+=======
+            vector<vector<pair<bool,string> > > formula = build_formula(argv[2]);
+            Index ind(matrix, geneNames, cellNames);
+            vector<int> answer = ind.first_clause(formula);
+            cout << "num sat: " << answer.size() << "\n";
+
+	    Naive naive(matrix, geneNames, cellNames);
+	    answer = naive.query(formula);
+	    cout << "num sat: " << answer.size() << "\n";
+>>>>>>> ee5d8e851d914edafc4c43d8d833b5633cbc4df2
         } else {
             cout << "Unknown command. Please use query.";
         }
