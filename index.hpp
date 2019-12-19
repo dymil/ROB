@@ -18,4 +18,7 @@ private:
     unordered_map<string, int> geneNamesToIdx;
     unordered_map<string, int> cellNamesToIdx;
     vector<pair<vector<int>, vector<int> > > expressed;
+    bool gene_comparator(const pair<bool,string>&, const pair<bool,string>&);
+    void sort_clause(const vector<pair<bool,string> >&);
+    void sort_formula(const vector<vector<pair<bool,string> > >&);
 };
