@@ -8,10 +8,11 @@
 #include <fstream>
 #include <iostream>
 #include <cstring>
+#include "index.h"
 
-using std::vector, std::set, std::string, std::unordered_map, std::pair, std::ifstream, std::cout;
+using namespace std;
 
-Index::Index(const vector<vector<bool>>& mat, const vector<string>& geneNames, const vector<string>& cellNames): matrix(mat), geneNames(geneNames), cellNames(cellNames), expressed(geneNames.size()) {
+Index::Index(const vector<vector<bool> >& mat, const vector<string>& geneNames, const vector<string>& cellNames): matrix(mat), geneNames(geneNames), cellNames(cellNames), expressed(geneNames.size()) {
     assert(matrix.size() == geneNames.size());
     for (int i = 0; i < geneNames.size(); ++i) {
       geneNamesToIdx.insert({geneNames[i], i});
@@ -23,7 +24,7 @@ Index::Index(const vector<vector<bool>>& mat, const vector<string>& geneNames, c
 
     for (int i = 0; i < expressed.size(); ++i) {
       for (int j = 0; j < matrix[i].size(); ++j)
-	(matrix[i][j] ? expressed[i].first : expressed[i].second).insert(j);
+	(matrix[i][j] ? expressed[i].first : expressed[i].second).push_back(j);
     }
  }
 
