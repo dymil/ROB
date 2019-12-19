@@ -161,22 +161,26 @@ int main(int argc, char** argv)
           string line;
           vector<string> clauses;
           vector<vector<pair<bool,string> > > formula;
+          clock_t sum1;
+          clock_t sum2;
 
           while (getline(input, line)) {
               vector<vector<pair<bool,string> > > formula = build_formula(line);
               Index ind(matrix, geneNames, cellNames);
               clock_t exp1 = clock();
               vector<int> answer = ind.first_clause(formula);
-              exp1 = clock() - exp1;
-              cout << "time ours: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
+              sum1 += clock() - exp1;
+              //cout << "time ours: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
               cout << "num sat: " << answer.size() << "\n";
               Naive naive(matrix, geneNames, cellNames);
               exp1 = clock();
               answer = naive.query(formula);
-              exp1 = clock() - exp1;
-              cout << "time naive: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
+              sum2 += clock() - exp1;
+              //cout << "time naive: " << ((float)exp1)/CLOCKS_PER_SEC/1000 << "\n";
  	          cout << "num sat: " << answer.size() << "\n";
           }
+          cout << "time ours: " << ((float)sum1)/CLOCKS_PER_SEC/1000 << "\n";
+          cout << "time naive: " << ((float)sum2)/CLOCKS_PER_SEC/1000 << "\n";
         } else {
             cout << "Unknown command. Please use query.";
         }
