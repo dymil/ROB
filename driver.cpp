@@ -154,8 +154,10 @@ int main(int argc, char** argv)
 	      std::sort(answer2.begin(), answer2.end());
 	      cerr << "num set ours: " << answer1.size() << '\n';
 	      cerr << "num set theirs: " << answer2.size() << '\n';
-	      if (answer1 != answer2)
+	      if (answer1 != answer2) {
+		cerr << "answers didn't match for formula:" << line << endl;
 		exit(1);
+	      }
           }
           cout << "time ours: " << chrono::duration_cast<chrono::microseconds>(sum1).count() << "μs\n";
           cout << "time naive: " << chrono::duration_cast<chrono::microseconds>(sum2).count() << "μs\n";
