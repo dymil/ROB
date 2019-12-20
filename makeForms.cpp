@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
       not_prob = atof(optarg);
       break;
     case 'g':
-      max_gene = atoi(optarg);
+      max_gene = min(atoi(optarg), max_gene);
       break;
     case 'n':
       num_forms = atoi(optarg);
