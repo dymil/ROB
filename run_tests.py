@@ -15,9 +15,10 @@ with open('results.csv', 'a+', newline='') as ofile:
     if not results_existed:
         writer.writeheader()
     for i in range(20):
-        fields = {'num clauses': 1 + randrange(40),
-                  'max literals': 1 + randrange(40),
-                  'max genes': random.choice([None, randrange(40, 20000, 1)]),
+        fields = {'num clauses': 1 + randrange(50),
+                  'max literals': 1 + randrange(50),
+                  'max genes': random.choice([None, randrange(50, 20000, 1)]),
+                  # miniumum number of genes because duplicate genes are pointless
                   'not probability': random.uniform(0.1, 0.9)}
         for mat in map(os.path.basename, glob.iglob(os.path.join(mat_dir, '*.mat'))):
             fields['mat file'] = mat
