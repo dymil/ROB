@@ -143,14 +143,19 @@ int main(int argc, char** argv)
               vector<vector<pair<bool,string> > > formula = build_formula(line);
 
               auto exp1 = chrono::high_resolution_clock::now();
-              vector<int> answer = ind.first_clause(formula);
+              vector<int> answer1 = ind.first_clause(formula);
               sum1 += chrono::high_resolution_clock::now() - exp1;
-              cout << "num sat: " << answer.size() << "\n";
+              cout << "num sat: " << answer1.size() << "\n";
 	      
               exp1 = chrono::high_resolution_clock::now();
-              answer = naive.query(formula);
+              vector<int> answer2 = naive.query(formula);
               sum2 += chrono::high_resolution_clock::now() - exp1;
-	      cout << "num sat: " << answer.size() << "\n";
+	      std::sort(answer1.begin(), answer1.end());
+	      std::sort(answer2.begin(), answer2.end());
+	      cerr << "num set ours: " << answer1.size() << '\n';
+	      cerr << "num set theirs: " << answer2.size() << '\n';
+	      if (answer1 != answer2)
+		exit(1);
           }
           cout << "time ours: " << chrono::duration_cast<chrono::microseconds>(sum1).count() << "μs\n";
           cout << "time naive: " << chrono::duration_cast<chrono::microseconds>(sum2).count() << "μs\n";
