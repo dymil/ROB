@@ -145,11 +145,11 @@ int main(int argc, char** argv)
               auto exp1 = chrono::high_resolution_clock::now();
               vector<int> answer1 = ind.first_clause(formula);
               sum1 += chrono::high_resolution_clock::now() - exp1;
-              cout << "num sat: " << answer1.size() << "\n";
 	      
               exp1 = chrono::high_resolution_clock::now();
               vector<int> answer2 = naive.query(formula);
               sum2 += chrono::high_resolution_clock::now() - exp1;
+	      
 	      std::sort(answer1.begin(), answer1.end());
 	      std::sort(answer2.begin(), answer2.end());
 	      cerr << "num set ours: " << answer1.size() << '\n';
