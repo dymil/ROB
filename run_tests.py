@@ -15,13 +15,13 @@ with open('results.csv', 'a+', newline='') as ofile:
     if not results_existed:
         writer.writeheader()
     for i in range(20):
-        fields = {'num clauses': 1 + randrange(60),
-                  'max literals': 1 + randrange(60),
-                  'max genes': random.choice([None, randrange(60, 22000, 1)]),
+        fields = {'num clauses': 1 + randrange(80),
+                  'max literals': 1 + randrange(80),
+                  'max genes': random.choice([None, randrange(80, 23000, 1)]),
                   # miniumum number of genes because duplicate genes are pointless
                   'not probability': random.uniform(0.0, 1.0)}
         for mat in map(os.path.basename, glob.iglob(os.path.join(mat_dir, '*.mat'))):
-            fields['mat file'] = os.path.splitext(mat)
+            fields['mat file'] = os.path.splitext(mat)[0]
             form_file = os.path.join('forms',
                                      ''.join([os.path.splitext(mat)[0], '_',
                                               str(i), '.txt']))
