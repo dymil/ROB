@@ -4,7 +4,7 @@ from random import randrange
 
 random.seed()
 re_time = re.compile('^time (ours|naive): ((?:\\d)+)μs$', flags=re.MULTILINE)
-n_form = 1
+n_form = 10
 mat_dir = 'mats'
 results_existed = os.path.exists('results.csv')
 with open('results.csv', 'a+', newline='') as ofile:
@@ -13,7 +13,7 @@ with open('results.csv', 'a+', newline='') as ofile:
                                     'our time', 'naive time'])
     if not results_existed:
         writer.writeheader()
-    for i in range(1):
+    for i in range(20):
         fields = {'num clauses': 1 + randrange(40),
                   'max literals': 1 + randrange(40),
                   'max genes': random.choice([None, randrange(40, 20000, 1)]),
@@ -30,7 +30,7 @@ with open('results.csv', 'a+', newline='') as ofile:
                            '-l', str(fields['max literals'])]
             if fields['max genes']:
                 cmd.extend(['-g', str(fields['max genes'])])
-                           
+
             res = subprocess.run(cmd, capture_output=True)
             print(res.stdout.decode())
             if res.returncode:
