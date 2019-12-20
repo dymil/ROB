@@ -136,15 +136,17 @@ int main(int argc, char** argv)
 	  chrono::high_resolution_clock::duration sum1(0);
 	  chrono::high_resolution_clock::duration sum2(0);
 
+	  Index ind(matrix, geneNames, cellNames);
+	  Naive naive(matrix, geneNames, cellNames);
+
           while (getline(input, line)) {
               vector<vector<pair<bool,string> > > formula = build_formula(line);
-              Index ind(matrix, geneNames, cellNames);
+
               auto exp1 = chrono::high_resolution_clock::now();
               vector<int> answer = ind.first_clause(formula);
               sum1 += chrono::high_resolution_clock::now() - exp1;
               cout << "num sat: " << answer.size() << "\n";
 	      
-              Naive naive(matrix, geneNames, cellNames);
               exp1 = chrono::high_resolution_clock::now();
               answer = naive.query(formula);
               sum2 += chrono::high_resolution_clock::now() - exp1;
