@@ -4,6 +4,7 @@ from random import randrange
 
 random.seed()
 re_time = re.compile('^time (ours|naive): ((?:\\d)+)μs$', flags=re.MULTILINE)
+re_max_genes = re.compile('^max_gene: ((?:\\d)+)$', flags=re.MULTILINE)
 n_form = 10
 mat_dir = 'mats'
 results_existed = os.path.exists('results.csv')
@@ -39,6 +40,7 @@ with open('results.csv', 'a+', newline='') as ofile:
                       file=sys.stderr)
                 print(res.stderr.decode(), file=sys.stderr)
             else:
+                fields['max genes'] = int(re_max_genes.search(res.stdout.decode())[1])
                 cmd = [os.path.join('.', 'test'), 'query', form_file,
                        os.path.join(mat_dir, mat)]
                 res = subprocess.run(cmd, capture_output=True)
