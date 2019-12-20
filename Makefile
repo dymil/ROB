@@ -9,6 +9,9 @@ formula: makeForms.cpp
 test: driver.cpp index.cpp naive.cpp naive.hpp index.hpp read_mat.hpp
 	$(CXX) $(CXXFLAGS) -o $@ driver.cpp index.cpp naive.cpp
 
+readMat: read_mat.cpp read_mat.hpp
+	$(CXX) $(CXXFLAGS) -o $@ $<
+
 .PHONY: all clean
 
 clean:

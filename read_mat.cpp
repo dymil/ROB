@@ -24,14 +24,16 @@ int main(int argc, char* argv[]) {
   else
     std::exit(1);
 
-  printWithDelim(colNames.cbegin(), colNames.cend(), ' ', std::cout);
-  std::cout << '\n';
-  printWithDelim(rowNames.cbegin(), rowNames.cend(), ' ', std::cout);
-  std::cout << '\n';
-  std::for_each(matrix.cbegin(), matrix.cend() - 1,
-		[](vector<bool> row){
-		  printWithDelim(row.cbegin(), row.cend(), ' ', std::cout);
-		  std::cout << '\n';});
-  std::for_each(matrix.back().cbegin(), matrix.back().cend() - 1, [](bool s){std::cout << s << ' ';});
-  std::cout << matrix.back().back();
+  std::cout << "number of cols: " << colNames.size();
+  std::cout << "\nnumber of rows: " << rowNames.size() << '\n';
+  // printWithDelim(colNames.cbegin(), colNames.cend(), ' ', std::cout);
+  // std::cout << '\n';
+  // printWithDelim(rowNames.cbegin(), rowNames.cend(), ' ', std::cout);
+  // std::cout << '\n';
+  // std::for_each(matrix.cbegin(), matrix.cend() - 1,
+  // 		[](vector<bool> row){
+  // 		  printWithDelim(row.cbegin(), row.cend(), ' ', std::cout);
+  // 		  std::cout << '\n';});
+  // std::for_each(matrix.back().cbegin(), matrix.back().cend() - 1, [](bool s){std::cout << s << ' ';});
+  // std::cout << matrix.back().back();
 }
