@@ -42,11 +42,12 @@ int main(int argc, char** argv) {
        {"max_genes",  required_argument, 0, 'g'},
        {"num_forms",  required_argument, 0, 'n'},
        {"num_literals",    required_argument, 0, 'l'},
+       {"num_clauses",    required_argument, 0, 'c'},
        {0, 0, 0, 0}
       };
     int option_index = 0;
 
-    c = getopt_long (argc, argv, "o:p:g:n:l:",
+    c = getopt_long (argc, argv, "c:o:p:g:n:l:",
 		     long_options, &option_index);
 
     /* Detect the end of the options. */
@@ -68,6 +69,9 @@ int main(int argc, char** argv) {
       break;
     case 'l':
       clause_high = atoi(optarg);
+      break;
+    case 'c':
+      num_clauses = atoi(optarg);
       break;
     case '?':
       /* getopt_long already printed an error message. */
