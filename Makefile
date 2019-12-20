@@ -1,5 +1,5 @@
-CXX=g++
-CXXFLAGS=--std=c++1z
+CXX := g++
+CXXFLAGS := --std=c++1z
 
 all: formula test
 
