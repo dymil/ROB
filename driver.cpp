@@ -157,8 +157,8 @@ int main(int argc, char** argv)
 	      if (answer1 != answer2)
 		exit(1);
           }
-          cout << "time ours: " << chrono::duration_cast<chrono::nanoseconds>(sum1).count() << "ns\n";
-          cout << "time naive: " << chrono::duration_cast<chrono::nanoseconds>(sum2).count() << "ns\n";
+          cout << "time ours: " << chrono::duration_cast<chrono::microseconds>(sum1).count() << "μs\n";
+          cout << "time naive: " << chrono::duration_cast<chrono::microseconds>(sum2).count() << "μs\n";
         } else {
             cout << "Unknown command. Please use query.";
         }
