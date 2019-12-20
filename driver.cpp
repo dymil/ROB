@@ -157,7 +157,8 @@ int main(int argc, char** argv)
 	      if (answer1 != answer2) {
 		cerr << "answers didn't match for formula:" << line << endl;
 		exit(1);
-	      }
+	      } else
+		cout << "both had: " << answer1.size() << " satisfied\n";
           }
           cout << "time ours: " << chrono::duration_cast<chrono::microseconds>(sum1).count() << "μs\n";
           cout << "time naive: " << chrono::duration_cast<chrono::microseconds>(sum2).count() << "μs\n";
