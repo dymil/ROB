@@ -1,5 +1,5 @@
-#!/usr/bin/env python
-import subprocess, csv, os, sys, re, random, glob
+#!/usr/bin/env python3
+import subprocess, csv, os.path, sys, re, random, glob
 from random import randrange
 
 random.seed()
