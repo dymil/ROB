@@ -36,13 +36,17 @@ vector<int> Index::clause_helper(const vector<pair<bool,string> >& clause, vecto
   else {
       vector<int> still_unsatisfied;
       int curr_gene = geneNamesToIdx.at(clause[curr_index].second);
-      for (int cell : not_satisfied){
-          if (clause[curr_index].first == matrix[curr_gene][cell]) {
-              satisfied.push_back(cell);
-          } else {
-              still_unsatisfied.push_back(cell);
-          }
-      }
+      partition_copy(not_satisfied.cbegin(), not_satisfied.cend(),
+		     back_inserter(satisfied), back_inserter(still_unsatisfied),
+		     [this, curr_index, curr_gene, &clause](int cell){
+		       return clause[curr_index].first == matrix[curr_gene][cell];});
+      // for (int cell : not_satisfied){
+      //     if (clause[curr_index].first == matrix[curr_gene][cell]) {
+      //         satisfied.push_back(cell);
+      //     } else {
+      //         still_unsatisfied.push_back(cell);
+      //     }
+      // }
       return clause_helper(clause, satisfied, still_unsatisfied, curr_index+1);
   }
 }
